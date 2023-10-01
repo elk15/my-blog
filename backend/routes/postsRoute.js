@@ -2,6 +2,8 @@ const express = require('express');
 const {
     getPosts,
     getPost,
+    getAllTags,
+    getPostsByTag,
     createPost,
     deletePost,
     updatePost,
@@ -10,6 +12,12 @@ const router = express.Router();
 
 // GET all posts
 router.get('/', getPosts);
+
+// GET all tags
+router.get('/tags', getAllTags);
+
+// GET all posts by tag
+router.get('/tags/:tag', getPostsByTag);
 
 //GET one post
 router.get('/:id', getPost);
