@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
+import About from './pages/About';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
 
@@ -25,6 +26,7 @@ function App() {
         + (theme === 'light' ? ' bg-white text-stone-900' : ' bg-stone-900 text-white')}>
           <Routes>
             <Route path='/' element={<Home />}/>
+            <Route path='/about' element={<About />}/>
           </Routes>
         </main>
       </BrowserRouter>
