@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
+import Tags from './pages/Tags';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
 
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/about' element={<About />}/>
+            <Route path='/tags' element={<Tags />}/>
           </Routes>
         </main>
       </BrowserRouter>
