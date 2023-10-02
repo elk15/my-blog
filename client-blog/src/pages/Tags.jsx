@@ -1,9 +1,13 @@
 import MainContent from "../components/MainContent";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 const Tags = () => {
     const [tags, setTags] = useState(null);
+    const theme = useContext(ThemeContext);
+
 
     useEffect(() => {
         const fetchTags = async () => {
@@ -23,7 +27,9 @@ const Tags = () => {
             <div className="flex flex-wrap gap-4">
                 {tags && Object.keys(tags).map(key => {
                     return <span className="text-teal-500 font-semibold" key={key}>
-                                <Link to={`/tags/${key}`}>{key.toUpperCase()} <span className="text-neutral-400 font-normal">({tags[key]})</span></Link>
+                                <Link to={`/tags/${key}`}>
+                                    {key.toUpperCase()} <span className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'} font-normal`}>({tags[key]})</span>
+                                </Link>
                             </span>
                 })}
             </div>

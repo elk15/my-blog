@@ -4,6 +4,7 @@ import About from './pages/About';
 import Tags from './pages/Tags';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
+import { ThemeContext } from './context/ThemeContext';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -18,10 +19,11 @@ function App() {
 
   return (
     <>
+    <ThemeContext.Provider value={theme}>
       <BrowserRouter>
         <header className={'w-full' 
         + (theme === 'light' ? ' bg-white text-stone-900' : ' bg-stone-900 text-white')}>
-          <NavBar toggleTheme={toggleTheme} theme={theme}/>
+          <NavBar toggleTheme={toggleTheme}/>
         </header>
         <main className={'flex flex-col gap-2 w-full items-center'
         + (theme === 'light' ? ' bg-white text-stone-900' : ' bg-stone-900 text-white')}>
@@ -32,6 +34,7 @@ function App() {
           </Routes>
         </main>
       </BrowserRouter>
+    </ThemeContext.Provider>
     </>
   )
 }

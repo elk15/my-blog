@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
 const Post = ({post}) => {
+    const theme = useContext(ThemeContext);
+
     return (
         <section className='flex flex-col gap-1 text-lg'>
-            <p className='text-neutral-500'>
+            <p className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'}`}>
                 {format(new Date(post.createdAt), 'dd MMM yyyy')}
             </p>
             <div>
@@ -16,7 +20,7 @@ const Post = ({post}) => {
                     {post.tags.map(tag => <span key={tag}> <Link to={`/tags/${tag}`}>{tag.toUpperCase()}</Link> </span>)}
                 </div>
             </div>
-            <p className='text-neutral-500'>
+            <p className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'}`}>
                 {post.snippet}
             </p>
         </section>

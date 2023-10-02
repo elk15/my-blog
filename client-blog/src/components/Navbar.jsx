@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
-const NavBar = ({toggleTheme, theme}) => {
+const NavBar = ({toggleTheme}) => {
+    const theme = useContext(ThemeContext);
+
     return (
         <nav className='flex justify-between items-center max-w-[800px] w-full p-3 py-5 mx-auto'>
             <h1 className='font-semibold text-2xl'>Full Stack Tutorials</h1>
@@ -27,7 +31,6 @@ const NavBar = ({toggleTheme, theme}) => {
 
 NavBar.propTypes = {
     toggleTheme: PropTypes.func,
-    theme: PropTypes.string,
 }
 
 export default NavBar;
