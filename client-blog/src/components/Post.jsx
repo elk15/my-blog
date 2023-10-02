@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Post = ({post}) => {
     return (
         <section className='flex flex-col gap-1 text-lg'>
-            <p className='text-neutral-600'>
+            <p className='text-neutral-500'>
                 {format(new Date(post.createdAt), 'dd MMM yyyy')}
             </p>
             <div>
