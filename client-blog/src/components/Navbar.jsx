@@ -15,7 +15,9 @@ const NavBar = () => {
                     <Link to="/about"><h2>About</h2></Link>
                 </li>
                 <li className='flex items-center'>
-                    <button className='material-symbols-outlined'>clear_night</button>
+                    <button className='material-symbols-outlined' aria-label='change-theme'>
+                        clear_night
+                    </button>
                 </li>
             </ul>
         </nav>
