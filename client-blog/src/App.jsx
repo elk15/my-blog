@@ -21,7 +21,7 @@ function App() {
         + (theme === 'light' ? ' bg-white text-stone-900' : ' bg-stone-900 text-white')}>
           <NavBar toggleTheme={toggleTheme} theme={theme}/>
         </header>
-        <main className={'flex flex-col gap-2 w-full items-center bg-stone-900 text-white'
+        <main className={'flex flex-col gap-2 w-full items-center'
         + (theme === 'light' ? ' bg-white text-stone-900' : ' bg-stone-900 text-white')}>
           <Routes>
             <Route path='/' element={<Home />}/>
