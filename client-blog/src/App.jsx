@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Tags from './pages/Tags';
+import PostsInTag from './pages/PostsInTag';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
 import { ThemeContext } from './context/ThemeContext';
@@ -31,6 +32,7 @@ function App() {
             <Route path='/' element={<Home />}/>
             <Route path='/about' element={<About />}/>
             <Route path='/tags' element={<Tags />}/>
+            <Route path='/tags/:tag' element={<PostsInTag/>}/>
           </Routes>
         </main>
       </BrowserRouter>
