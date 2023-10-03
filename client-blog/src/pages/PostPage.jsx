@@ -1,28 +1,19 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from 'react';
+import { useContext} from "react";
 import { ThemeContext } from '../context/ThemeContext';
 import { format } from 'date-fns';
 import { Link } from "react-router-dom";
+import { ServerDataContext } from '../context/ServerDataContext';
 
 const PostPage = () => {
     let {postid} = useParams();
-    const [post, setPost] = useState(null);
+    const serverData = useContext(ServerDataContext);
     const theme = useContext(ThemeContext);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const response = await fetch(`http://localhost:3001/api/posts/${postid}`);
-            const json = await response.json();
-
-            if (response.ok) {
-                setPost(json);
-            }
-        }
-
-        fetchPosts();
-    }, [postid])
+    const postIndex = serverData.posts.findIndex(post => post._id === postid);
+    const post = serverData.posts[postIndex];
+    const prevPost = serverData.posts[postIndex - 1];
+    const nextPost = serverData.posts[postIndex + 1];
 
     return (
         <div className="flex flex-col items-center gap-3 max-w-[650px] w-full px-3 pt-5">
@@ -47,20 +38,28 @@ const PostPage = () => {
                 </section>
                 <section className="self-start w-full flex justify-between">
                     <div>
+                        {prevPost &&
+                        <>
                         <span className={`${theme === 'light' ? 'text-neutral-500' : 'text-neutral-400'} font-semibold`}>
                             PREVIOUS ARTICLE
                         </span>
                         <p className="text-teal-500">
-                            Example title
+                            <Link to={`/${prevPost._id}`}>{[prevPost.title]}</Link>
                         </p>
+                        </>
+                        }
                     </div>
                     <div>
+                        {nextPost &&
+                        <>
                         <span className={`${theme === 'light' ? 'text-neutral-500' : 'text-neutral-400'} font-semibold`}>
                             NEXT ARTICLE
                         </span>
                         <p className="text-teal-500">
-                            Example title
+                        <Link to={`/${nextPost._id}`}>{[nextPost.title]}</Link>
                         </p>
+                        </>
+                        }  
                     </div>
                 </section>
                 <section className="self-start text-teal-500">
