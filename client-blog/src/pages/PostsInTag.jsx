@@ -5,7 +5,17 @@ import MainContent from "../components/MainContent";
 
 const PostsInTag = () => {
     const [posts, setPosts] = useState(null);
+    const [query, setQuery] = useState('');
     let {tag} = useParams();
+
+    const search = (post) => {
+        if (post.title.toLowerCase().includes(query.toLowerCase())
+        || post.body.toLowerCase().includes(query.toLowerCase())
+        || post.tags.includes(query.toLowerCase())) {
+            return true;
+        }
+        return false;
+    }
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -21,10 +31,18 @@ const PostsInTag = () => {
     }, [tag])
 
     return (
-        <MainContent title={tag.toUpperCase()}>
-            {posts && posts.map((post) => (
-                <Post key={post._id} post={post} />
-            ))}
+        <MainContent title={tag.toUpperCase()} query={query} setQuery={setQuery}>
+            {query.length > 2 ?
+                posts && posts
+                .filter(post => search(post))
+                .map((post) => (
+                    <Post key={post._id} post={post} />
+                ))
+            :
+                posts && posts.map((post) => (
+                    <Post key={post._id} post={post} />
+                ))
+            }
         </MainContent>
     )
 }
