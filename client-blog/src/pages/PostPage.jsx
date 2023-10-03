@@ -15,6 +15,8 @@ const PostPage = () => {
     const prevPost = serverData.posts[postIndex - 1];
     const nextPost = serverData.posts[postIndex + 1];
 
+    const comments = serverData.comments.filter(comment => comment.replyingTo === postid);
+
     return (
         <div className="flex flex-col items-center gap-3 max-w-[650px] w-full px-3 pt-5">
             {post &&
@@ -66,6 +68,25 @@ const PostPage = () => {
                     <Link to='/'>
                         <p>← Back to the blog</p>
                     </Link>
+                </section>
+                <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full my-2`}/>
+                <section className={`${theme === 'light' ? 'text-neutral-500' : 'text-neutral-400'} w-full flex flex-col gap-4`}>
+                        <button className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full border p-3 rounded`}>
+                            Add a comment
+                        </button>
+                        {comments &&
+                        comments.map(comment => (
+                            <div key={comment._id} 
+                            className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full border p-3 rounded`}>
+                                <div className="flex justify-between">
+                                    <p className="font-semibold">{comment.name}</p>
+                                    <p>{format(new Date(post.createdAt), 'dd MMM yyyy')}</p>
+                                </div>
+                                <p>{comment.body}</p>
+                            </div>
+                        ))
+
+                        }
                 </section>
 
             </> 
