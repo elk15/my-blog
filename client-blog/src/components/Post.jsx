@@ -14,7 +14,7 @@ const Post = ({post}) => {
             </p>
             <div>
                 <h4 className='font-semibold text-2xl'>
-                    <Link to={`${post._id}`}>{post.title}</Link> 
+                    <Link to={`/${post._id}`}>{post.title}</Link> 
                 </h4>
                 <div className='text-teal-500 flex gap-2 font-semibold'>
                     {post.tags.map(tag => <span key={tag}> <Link to={`/tags/${tag}`}>{tag.toUpperCase()}</Link> </span>)}
