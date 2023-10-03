@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useContext} from "react";
 import { useParams } from "react-router-dom";
 import Post from "../components/Post";
 import MainContent from "../components/MainContent";
+import { ServerDataContext } from '../context/ServerDataContext';
 
 const PostsInTag = () => {
-    const [posts, setPosts] = useState(null);
+    const serverData = useContext(ServerDataContext);
     const [query, setQuery] = useState('');
     let {tag} = useParams();
 
@@ -17,21 +18,12 @@ const PostsInTag = () => {
         return false;
     }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const response = await fetch(`http://localhost:3001/api/posts/tags/${tag}`);
-            const json = await response.json();
+    const posts = serverData.posts.filter(post => post.tags.includes(tag));
 
-            if (response.ok) {
-                setPosts(json);
-            }
-        }
-
-        fetchPosts();
-    }, [tag])
+    const title = tag.charAt(0).toUpperCase() + tag.slice(1);
 
     return (
-        <MainContent title={tag.toUpperCase()} query={query} setQuery={setQuery}>
+        <MainContent title={title} query={query} setQuery={setQuery}>
             {query.length > 2 ?
                 posts && posts
                 .filter(post => search(post))

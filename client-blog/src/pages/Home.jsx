@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useContext} from "react";
 import Post from "../components/Post";
 import MainContent from "../components/MainContent";
+import { ServerDataContext } from '../context/ServerDataContext';
 
 const Home = () => {
-    const [posts, setPosts] = useState(null);
+    const serverData = useContext(ServerDataContext);
     const [query, setQuery] = useState('');
 
     const search = (post) => {
@@ -15,18 +16,8 @@ const Home = () => {
         return false;
     }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            const response = await fetch('http://localhost:3001/api/posts');
-            const json = await response.json();
+    const posts = serverData.posts;
 
-            if (response.ok) {
-                setPosts(json);
-            }
-        }
-
-        fetchPosts();
-    }, [])
 
     return (
         <MainContent title={'All Posts'} query={query} setQuery={setQuery}>

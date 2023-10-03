@@ -1,26 +1,41 @@
 import MainContent from "../components/MainContent";
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { useContext } from 'react';
+import { useContext, useMemo} from "react";
 import { ThemeContext } from '../context/ThemeContext';
+import { ServerDataContext } from '../context/ServerDataContext';
+
+// Sort tags alphabetically 
+const sortTagsAlphabetically = (obj) => {
+    const keys = Object.keys(obj).sort();
+    return keys.reduce((acc, key) => {
+      acc[key] = obj[key];
+      return acc;
+    }, {});
+};
+
+// Retrieve tags from post data
+const getTags = (data) => {
+    let tags = {};
+    data.posts.forEach(post => {
+        post.tags.forEach(tag => {
+            if (Object.keys(tags).includes(tag)) {
+                tags[tag] += 1;
+            } else {
+                tags[tag] = 1;
+            }
+        })
+    })
+    return sortTagsAlphabetically(tags);
+}
 
 const Tags = () => {
-    const [tags, setTags] = useState(null);
+    const serverData = useContext(ServerDataContext);
     const theme = useContext(ThemeContext);
 
-
-    useEffect(() => {
-        const fetchTags = async () => {
-            const response = await fetch('http://localhost:3001/api/posts/tags');
-            const json = await response.json();
-
-            if (response.ok) {
-                setTags(json);
-            }
-        }
-
-        fetchTags();
-    }, [])
+    const tags = useMemo(
+        () => getTags(serverData),
+        [serverData]
+    )
 
     return (
         <MainContent title={'Tags'}>
