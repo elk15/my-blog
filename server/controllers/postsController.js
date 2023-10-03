@@ -23,28 +23,6 @@ const getPost = async (req, res) => {
     res.status(200).json(post);
 }
 
-const getAllTags = async (req, res) => {
-    const posts = await Post.find({}).sort({createdAt: -1});
-    const tags = {};
-    posts.forEach(post => {
-        post.tags.forEach(tag => {
-            if (tags.hasOwnProperty(tag)) {
-                tags[tag] += 1;
-            } else {
-                tags[tag] = 1;
-            }
-        })
-    })
-    res.status(200).json(tags);
-}
-
-const getPostsByTag = async (req, res) => {
-    const posts = await Post.find({ tags: req.params.tag}).sort({createdAt: -1});
-
-    res.status(200).json(posts);
-}
-
-
 const createPost = async (req, res) => {
     const {title, snippet, body, tags, isPublished} = req.body;
     try {
@@ -92,8 +70,6 @@ const updatePost = async (req, res) => {
 module.exports = {
     getPosts,
     getPost,
-    getAllTags,
-    getPostsByTag,
     createPost,
     deletePost,
     updatePost,

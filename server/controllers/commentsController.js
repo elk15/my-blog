@@ -7,18 +7,6 @@ const getComments = async (req, res) => {
     res.status(200).json(comments);
 }
 
-const getPostComments = async (req, res) => {
-    const {id} = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such comment'});
-    }
-
-    const comments = await Comment.find({replyingTo: id}).sort({createdAt: -1});``
-
-    res.status(200).json(comments);
-}
-
 const getComment = async (req, res) => {
     const {id} = req.params;
 
@@ -81,7 +69,6 @@ const updateComment = async (req, res) => {
 
 module.exports = {
     getComments,
-    getPostComments,
     getComment,
     createComment,
     deleteComment,
