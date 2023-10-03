@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Tags from './pages/Tags';
 import PostsInTag from './pages/PostsInTag';
+import PostPage from './pages/PostPage';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
 import { ThemeContext } from './context/ThemeContext';
@@ -33,6 +34,7 @@ function App() {
             <Route path='/about' element={<About />}/>
             <Route path='/tags' element={<Tags />}/>
             <Route path='/tags/:tag' element={<PostsInTag/>}/>
+            <Route path='/:postid' element={<PostPage/>}/>
           </Routes>
         </main>
       </BrowserRouter>
