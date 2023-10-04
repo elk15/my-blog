@@ -1,8 +1,10 @@
 import MainContent from "../components/MainContent";
 import { Link } from 'react-router-dom';
-import { useContext, useMemo} from "react";
+import { useContext} from "react";
 import { ThemeContext } from '../context/ThemeContext';
 import { ServerDataContext } from '../context/ServerDataContext';
+import { useEffect } from "react";
+import { useState } from "react";
 
 // Sort tags alphabetically 
 const sortTagsAlphabetically = (obj) => {
@@ -31,11 +33,13 @@ const getTags = (data) => {
 const Tags = () => {
     const serverData = useContext(ServerDataContext);
     const theme = useContext(ThemeContext);
+    const [tags, setTags] = useState(null);
 
-    const tags = useMemo(
-        () => getTags(serverData),
-        [serverData]
-    )
+    useEffect(() => {
+        if (serverData.posts) {
+            setTags(getTags(serverData))
+        }
+    }, [serverData])
 
     return (
         <MainContent title={'Tags'}>

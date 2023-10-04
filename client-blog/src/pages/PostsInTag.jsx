@@ -3,11 +3,19 @@ import { useParams } from "react-router-dom";
 import Post from "../components/Post";
 import MainContent from "../components/MainContent";
 import { ServerDataContext } from '../context/ServerDataContext';
+import { useEffect } from "react";
 
 const PostsInTag = () => {
     const serverData = useContext(ServerDataContext);
     const [query, setQuery] = useState('');
+    const [posts, setPosts] = useState(null)
     let {tag} = useParams();
+
+    useEffect(() => {
+        if (serverData.posts) {
+            setPosts(serverData.posts.filter(post => post.tags.includes(tag)))
+        }
+    }, [serverData.posts, tag])
 
     const search = (post) => {
         if (post.title.toLowerCase().includes(query.toLowerCase())
@@ -17,8 +25,6 @@ const PostsInTag = () => {
         }
         return false;
     }
-
-    const posts = serverData.posts.filter(post => post.tags.includes(tag));
 
     const title = tag.charAt(0).toUpperCase() + tag.slice(1);
 
