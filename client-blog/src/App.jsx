@@ -8,6 +8,7 @@ import NavBar from './components/Navbar';
 import { useState } from 'react';
 import { ThemeContext } from './context/ThemeContext';
 import { ServerDataContextProvider } from './context/ServerDataContext';
+import Footer from './components/Footer';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -39,6 +40,7 @@ function App() {
             <Route path='/:postid' element={<PostPage/>}/>
           </Routes>
         </main>
+        <Footer/>
       </BrowserRouter>
     </ThemeContext.Provider>
     </ServerDataContextProvider>
