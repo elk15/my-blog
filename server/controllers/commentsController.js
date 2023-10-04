@@ -25,12 +25,32 @@ const getComment = async (req, res) => {
 
 const createComment = async (req, res) => {
     const {name, body, replyingTo} = req.body;
+
+    let emptyFields = []
+
+    if (!name) {
+        emptyFields.push('name');
+    }
+
+    if (!body) {
+        emptyFields.push('body');
+    }
+
+    if (!replyingTo) {
+        emptyFields.push('replyingTo');
+    }
+
+    if(emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
+    }
+
     try {
         const comment = await Comment.create({name, body, replyingTo});
         res.status(200).json(comment);
     } catch(err) {
         res.status(400).json({error: err.message});
     }
+    
 }
 
 const deleteComment = async (req, res) => {
