@@ -16,9 +16,9 @@ const sortTagsAlphabetically = (obj) => {
 };
 
 // Retrieve tags from post data
-const getTags = (data) => {
+const getTags = (posts) => {
     let tags = {};
-    data.posts.forEach(post => {
+    posts.forEach(post => {
         post.tags.forEach(tag => {
             if (Object.keys(tags).includes(tag)) {
                 tags[tag] += 1;
@@ -31,15 +31,15 @@ const getTags = (data) => {
 }
 
 const Tags = () => {
-    const serverData = useContext(ServerDataContext);
+    const { posts } = useContext(ServerDataContext);
     const theme = useContext(ThemeContext);
     const [tags, setTags] = useState(null);
 
     useEffect(() => {
-        if (serverData.posts) {
-            setTags(getTags(serverData))
+        if (posts) {
+            setTags(getTags(posts))
         }
-    }, [serverData])
+    }, [posts])
 
     return (
         <MainContent title={'Tags'}>

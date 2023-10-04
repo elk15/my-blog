@@ -4,7 +4,7 @@ import MainContent from "../components/MainContent";
 import { ServerDataContext } from '../context/ServerDataContext';
 
 const Home = () => {
-    const serverData = useContext(ServerDataContext);
+    const { posts } = useContext(ServerDataContext);
     const [query, setQuery] = useState('');
 
     const search = (post) => {
@@ -15,9 +15,6 @@ const Home = () => {
         }
         return false;
     }
-
-    const posts = serverData.posts;
-
 
     return (
         <MainContent title={'All Posts'} query={query} setQuery={setQuery}>

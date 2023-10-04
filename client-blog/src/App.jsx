@@ -7,12 +7,10 @@ import PostPage from './pages/PostPage';
 import NavBar from './components/Navbar';
 import { useState } from 'react';
 import { ThemeContext } from './context/ThemeContext';
-import { ServerDataContext } from './context/ServerDataContext';
-import useServerData from './hooks/ServerData';
+import { ServerDataContextProvider } from './context/ServerDataContext';
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const serverData = useServerData();
 
   const toggleTheme = () => {
     if (theme === 'light') {
@@ -24,7 +22,7 @@ function App() {
 
   return (
     <>
-    <ServerDataContext.Provider value={serverData}>
+    <ServerDataContextProvider>
     <ThemeContext.Provider value={theme}>
       <BrowserRouter>
         <header className={'w-full' 
@@ -43,7 +41,7 @@ function App() {
         </main>
       </BrowserRouter>
     </ThemeContext.Provider>
-    </ServerDataContext.Provider>
+    </ServerDataContextProvider>
     </>
   )
 }

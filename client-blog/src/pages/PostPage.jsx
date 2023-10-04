@@ -1,20 +1,25 @@
 import { useParams } from "react-router-dom";
 import { useContext} from "react";
 import { ThemeContext } from '../context/ThemeContext';
-import { format } from 'date-fns';
+import { format, compareDesc } from 'date-fns';
 import { Link } from "react-router-dom";
 import { ServerDataContext } from '../context/ServerDataContext';
 import { useState } from "react";
 import { useEffect } from "react";
+import CommentForm from "../components/CommentForm";
 
 const PostPage = () => {
     let {postid} = useParams();
-    const serverData = useContext(ServerDataContext);
+
     const theme = useContext(ThemeContext);
+
+    const serverData = useContext(ServerDataContext);
     const [post, setPost] = useState(null);
     const [nextPost, setNextPost] = useState(null);
     const [prevPost, setPrevPost] = useState(null);
     const [comments, setComments] = useState(null);
+
+    const [isCommentFormOpen, setCommentFormOpen] = useState(false);
 
     useEffect(() => {
         if (serverData.posts) {
@@ -29,7 +34,9 @@ const PostPage = () => {
         }
     }, [postid, serverData.comments, serverData.posts])
 
-    
+    useEffect(() => {
+        setCommentFormOpen(false);
+    }, [postid])
     
     return (
         <div className="flex flex-col items-center gap-3 max-w-[650px] w-full px-3 pt-5">
@@ -85,11 +92,18 @@ const PostPage = () => {
                 </section>
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full my-2`}/>
                 <section className={`${theme === 'light' ? 'text-neutral-500' : 'text-neutral-400'} w-full flex flex-col gap-4`}>
-                        <button className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full border p-3 rounded`}>
+                        {isCommentFormOpen ?
+                        <CommentForm postid={postid}/>
+                        :
+                        <button className={`${theme === 'light' ? 'border-neutral-200 hover:bg-neutral-100' : 'border-neutral-700 hover:bg-stone-800'} 
+                        w-full border p-3 rounded`} onClick={() => setCommentFormOpen(true)}>
                             Add a comment
                         </button>
+                        } 
                         {comments &&
-                        comments.map(comment => (
+                        comments
+                        .sort((a, b) => compareDesc(new Date(a.createdAt), new Date(b.createdAt)))
+                        .map(comment => (
                             <div key={comment._id} 
                             className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full border p-3 rounded`}>
                                 <div className="flex justify-between">
