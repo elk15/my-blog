@@ -36,10 +36,6 @@ const createComment = async (req, res) => {
         emptyFields.push('body');
     }
 
-    if (!replyingTo) {
-        emptyFields.push('replyingTo');
-    }
-
     if(emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
     }
