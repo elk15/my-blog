@@ -12,6 +12,7 @@ const CommentForm = ({postid}) => {
     const [name, setName] = useState('');
     const [body, setBody] = useState('');
     const [error, setError] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([]);
 
     useEffect(() => {
         setError(null);
@@ -36,10 +37,12 @@ const CommentForm = ({postid}) => {
 
         if (!response.ok) {
             setError(json.error);
+            setEmptyFields(json.emptyFields);
         }
 
         if (response.ok) {
             setError(null);
+            setEmptyFields([]);
             setName('');
             setBody('');
             setComments([...comments, json]);
@@ -55,7 +58,8 @@ const CommentForm = ({postid}) => {
                 className={`${theme === 'light' ? 
                 'border-neutral-200 bg-white text-stone-900' :
                 'border-neutral-700 bg-stone-800 text-white outline-none'} 
-                focus:outline-teal-500 w-full border p-3 rounded`}
+                focus:outline-teal-500 w-full border p-3 rounded
+                ${emptyFields.includes('name') ? 'border-red-400' : ''}`}
             />
 
             <textarea 
@@ -65,9 +69,10 @@ const CommentForm = ({postid}) => {
             className={`${theme === 'light' ? 
             'border-neutral-200 bg-white text-stone-900' : 
             'border-neutral-700 bg-stone-800 text-white outline-none'} 
-            focus:outline-teal-500 w-full border p-3 rounded`}></textarea>
+            focus:outline-teal-500 w-full border p-3 rounded
+            ${emptyFields.includes('body') ? 'border-red-400' : ''}`}></textarea>
 
-            {error && <div>{error}</div>}
+            {error && <div className="text-red-400">{error}</div>}
 
             <button type="submit" 
             className={`${theme === 'light' ? 
