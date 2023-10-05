@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <MainContent title={'All Posts'} query={query} setQuery={setQuery}>
             {posts &&
-                <PaginatedItems itemsPerPage={5} posts={ posts } query={query}/>
+                <PaginatedItems itemsPerPage={4} posts={ posts } query={query}/>
             }  
         </MainContent>
     )
