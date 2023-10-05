@@ -19,7 +19,7 @@ const PostPage = () => {
     const [prevPost, setPrevPost] = useState(null);
     const [comments, setComments] = useState(null);
 
-    const [isCommentFormOpen, setCommentFormOpen] = useState(false);
+    const [isCommentFormOpen, setCommentFormStatus] = useState(false);
 
     useEffect(() => {
         if (serverData.posts) {
@@ -35,7 +35,7 @@ const PostPage = () => {
     }, [postid, serverData.comments, serverData.posts])
 
     useEffect(() => {
-        setCommentFormOpen(false);
+        setCommentFormStatus(false);
     }, [postid])
     
     return (
@@ -93,10 +93,10 @@ const PostPage = () => {
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full my-2`}/>
                 <section className={`${theme === 'light' ? 'text-neutral-500' : 'text-neutral-400'} w-full flex flex-col gap-4`}>
                         {isCommentFormOpen ?
-                        <CommentForm postid={postid}/>
+                        <CommentForm postid={postid} setCommentFormStatus={setCommentFormStatus}/>
                         :
                         <button className={`${theme === 'light' ? 'border-neutral-200 hover:bg-neutral-100' : 'border-neutral-700 hover:bg-stone-800'} 
-                        w-full border p-3 rounded`} onClick={() => setCommentFormOpen(true)}>
+                        w-full border p-3 rounded`} onClick={() => setCommentFormStatus(true)}>
                             Add a comment
                         </button>
                         } 

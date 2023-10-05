@@ -5,7 +5,7 @@ import { ServerDataContext } from "../context/ServerDataContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { useEffect } from "react";
 
-const CommentForm = ({postid}) => {
+const CommentForm = ({postid, setCommentFormStatus}) => {
     const {comments, setComments} = useContext(ServerDataContext);
     const theme = useContext(ThemeContext);
 
@@ -46,6 +46,7 @@ const CommentForm = ({postid}) => {
             setName('');
             setBody('');
             setComments([...comments, json]);
+            setCommentFormStatus(false);
         }
     }
 
@@ -86,6 +87,7 @@ const CommentForm = ({postid}) => {
 
 CommentForm.propTypes ={
     postid: PropTypes.string,
+    setCommentFormStatus: PropTypes.func,
 
 }
 
