@@ -11,7 +11,6 @@ const Home = () => {
             fetch('http://localhost:3001/api/posts/')
             .then((response) => {
                 if (response.ok) {
-                    console.log('Hello?')
                     return response.json();
                 } else {
                     throw new Error("server error");
