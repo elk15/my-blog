@@ -45,7 +45,7 @@ const Tags = () => {
         <MainContent title={'Tags'}>
             <div className="flex flex-wrap gap-4">
                 {tags && Object.keys(tags).map(key => {
-                    return <span className="text-teal-500 font-semibold" key={key}>
+                    return <span className="text-teal-500 font-semibold" key={key} role="tag">
                                 <Link to={`/tags/${key}`}>
                                     {key.toUpperCase()} <span className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'} font-normal`}>({tags[key]})</span>
                                 </Link>
