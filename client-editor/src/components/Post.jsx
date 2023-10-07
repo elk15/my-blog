@@ -27,7 +27,7 @@ const Post = ({post}) => {
             <Link to="" className='hover:text-black'>
                 Moderate Comments
             </Link>
-            <Link to="" className='hover:text-black'>
+            <Link to={`/update/${post._id}`} className='hover:text-black'>
                 Update
             </Link>
             <Link to="" className='hover:text-black'>
