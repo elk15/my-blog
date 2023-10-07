@@ -7,6 +7,7 @@ import { ServerDataContext } from '../context/ServerDataContext';
 import { useState } from "react";
 import { useEffect } from "react";
 import CommentForm from "../components/CommentForm";
+import parse from 'html-react-parser';
 
 const PostPage = () => {
     let {postid} = useParams();
@@ -47,9 +48,9 @@ const PostPage = () => {
                 </p>
                 <h3 className="font-bold text-4xl">{post.title}</h3>
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full mb-2`}/>
-                <p className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-200'} text-lg self-start`}>
-                    {post.body}
-                </p>
+                <div className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-200'} text-lg self-start`}>
+                    {parse(post.body)}
+                </div>
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full my-2`}/>
                 <section className="self-start">
                     <p className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'}`}>
