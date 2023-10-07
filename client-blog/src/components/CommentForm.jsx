@@ -11,11 +11,11 @@ const CommentForm = ({postid, setCommentFormStatus}) => {
 
     const [name, setName] = useState('');
     const [body, setBody] = useState('');
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState(null);
     const [emptyFields, setEmptyFields] = useState([]);
 
     useEffect(() => {
-        setError(null);
+        setErrors(null);
         setName('');
         setBody('');
     }, [postid])
@@ -36,12 +36,12 @@ const CommentForm = ({postid, setCommentFormStatus}) => {
         const json = await response.json();
 
         if (!response.ok) {
-            setError(json.error);
-            setEmptyFields(json.emptyFields);
+            setErrors(json.errors);
+            if(json.emptyFields) setEmptyFields(json.emptyFields);
         }
 
         if (response.ok) {
-            setError(null);
+            setErrors(null);
             setEmptyFields([]);
             setName('');
             setBody('');
@@ -73,7 +73,9 @@ const CommentForm = ({postid, setCommentFormStatus}) => {
             focus:outline-teal-500 w-full border p-3 rounded
             ${emptyFields.includes('body') ? 'border-red-400' : ''}`}></textarea>
 
-            {error && <div className="text-red-400">{error}</div>}
+            {errors && errors.map(err => (
+                <div key={err.msg} className="text-red-400">{err.msg}</div>
+            ))}
 
             <button type="submit" 
             className={`${theme === 'light' ? 
