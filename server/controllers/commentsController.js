@@ -24,6 +24,14 @@ const getComment = async (req, res) => {
     res.status(200).json(comment);
 }
 
+const getCommentsByPost = async (req, res) => {
+    const {id} = req.params;
+
+    const comments = await Comment.find({replyingTo: id}).sort({createdAt: -1});
+
+    res.status(200).json(comments);
+}
+
 const createComment = [
     body('name')
         .trim()
@@ -108,6 +116,7 @@ const updateComment = [
 
 module.exports = {
     getComments,
+    getCommentsByPost,
     getComment,
     createComment,
     deleteComment,

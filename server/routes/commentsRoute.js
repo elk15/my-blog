@@ -1,6 +1,7 @@
 const express = require('express');
 const {
     getComments,
+    getCommentsByPost,
     getComment,
     createComment,
     deleteComment,
@@ -10,6 +11,9 @@ const router = express.Router();
 
 // GET all comments
 router.get('/', getComments);
+
+// GET all comments of a post
+router.get('/replyingTo/:id', getCommentsByPost);
 
 //GET one comment
 router.get('/:id', getComment);
