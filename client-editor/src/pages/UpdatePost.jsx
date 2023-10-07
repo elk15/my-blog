@@ -21,7 +21,7 @@ const UpdatePost = () => {
                         title: json.title,
                         snippet: json.snippet,
                         body: json.body,
-                        tags: json.tags.toString(),
+                        tags: json.tags.join(", "),
                         isPublished: json.isPublished,
                     })
                 }
