@@ -81,23 +81,47 @@ const deletePost = async (req, res) => {
     res.status(200).json(post);
 }
 
-const updatePost = async (req, res) => {
-    const {id} = req.params;
+const updatePost = [
+    body("title")
+        .trim()
+        .notEmpty()
+        .withMessage("Title is required")
+        .isLength({max: 100})
+        .withMessage("Title cannot exceed 100 characters"),
+    body("snippet")
+        .trim()
+        .notEmpty()
+        .withMessage("Snippet is required")
+        .isLength({max: 300})
+        .withMessage("Snippet cannot exceed 100 characters"),
+    body("body")
+        .trim()
+        .notEmpty()
+        .withMessage("Body is required"),
+    body("tags")
+        .trim()
+        .customSanitizer(tags => {
+            return tags.split(", ");
+        }),
+    async (req, res) => {
+        const errors = validationResult(req);
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such post'});
+        if (!errors.isEmpty()) {
+            res.status(400).json({errors: errors.array()});
+            return;
+        }
+
+        try {
+            const {id} = req.params;
+            const post = await Post.findOneAndUpdate({_id: id}, {
+                ...req.body
+            })
+            res.status(200).json(post);
+        } catch(err) {
+            res.status(400).json({errors: [{msg: err.message}]});
+        }
     }
-
-    const post = await Post.findOneAndUpdate({_id: id}, {
-        ...req.body
-    });
-
-    if (!post) {
-        return res.status(404).json({error: 'No such post'});
-    }
-
-    res.status(200).json(post);
-}
+]
 
 module.exports = {
     getPosts,
