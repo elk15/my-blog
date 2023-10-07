@@ -1,5 +1,6 @@
 const Post = require('../models/postsModel');
 const mongoose = require('mongoose');
+const { body, validationResult } = require("express-validator");
 
 const getPosts = async (req, res) => {
     const posts = await Post.find({}).sort({createdAt: -1});
@@ -23,15 +24,46 @@ const getPost = async (req, res) => {
     res.status(200).json(post);
 }
 
-const createPost = async (req, res) => {
-    const {title, snippet, body, tags, isPublished} = req.body;
-    try {
-        const post = await Post.create({title, snippet, body, tags, isPublished});
-        res.status(200).json(post);
-    } catch(err) {
-        res.status(400).json({error: err.message});
+const createPost = [
+    body("title")
+        .trim()
+        .notEmpty()
+        .withMessage("Title is required")
+        .isLength({max: 100})
+        .withMessage("Title cannot exceed 100 characters"),
+    body("snippet")
+        .trim()
+        .notEmpty()
+        .withMessage("Snippet is required")
+        .isLength({max: 300})
+        .withMessage("Snippet cannot exceed 100 characters"),
+    body("body")
+        .trim()
+        .notEmpty()
+        .withMessage("Body is required"),
+    body("tags")
+        .trim()
+        .customSanitizer(tags => {
+            return tags.split(", ");
+        }),
+    async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.status(400).json({errors: errors.array()});
+            return;
+        } 
+
+        try {
+            const {title, snippet, body, tags, isPublished} = req.body;
+            const post = await Post.create({title, snippet, body, tags, isPublished});
+            res.status(200).json(post);
+        } catch(err) {
+            res.status(400).json({errors: [{msg: err.message}]});
+        }
+        
     }
-}
+]
 
 const deletePost = async (req, res) => {
     const {id} = req.params;
