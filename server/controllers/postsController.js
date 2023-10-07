@@ -1,4 +1,5 @@
 const Post = require('../models/postsModel');
+const Comment = require('../models/commentsModel');
 const mongoose = require('mongoose');
 const { body, validationResult } = require("express-validator");
 
@@ -72,13 +73,14 @@ const deletePost = async (req, res) => {
         return res.status(404).json({error: 'No such post'});
     }
 
+    const commentsDeleted = await Comment.deleteMany({replyingTo: id});
     const post = await Post.findOneAndDelete({_id: id});
 
     if (!post) {
         return res.status(404).json({error: 'No such post'});
     }
 
-    res.status(200).json(post);
+    res.status(200).json({post, commentsDeleted});
 }
 
 const updatePost = [
