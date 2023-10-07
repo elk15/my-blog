@@ -9,19 +9,6 @@ const PostsReducer = (state, action) => {
             return {
                 posts: action.payload
             }
-        case 'CREATE_POST':
-            return {
-                posts: [action.payload, ...state.posts]
-            }
-        case 'UPDATE_POST':
-            return {
-                posts: state.posts.map((p) => {
-                    if (p._id === action.payload._id) {
-                        return action.payload;
-                    }
-                    return;
-                })
-            }
         case 'DELETE_POST':
             return {
                 posts: state.posts.filter((p) => p._id !== action.payload._id)

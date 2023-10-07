@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
+import { useContext } from 'react';
+import { PostsContext } from '../context/PostsContext';
 
 const Post = ({post}) => {
     const [deleteConfirm, setDeleteConfirm] = useState(false);
+    const { dispatch } = useContext(PostsContext);
 
     const handleDelete = async () => {
         try {
@@ -15,7 +18,7 @@ const Post = ({post}) => {
 
             if (response.ok) {
                 setDeleteConfirm(false);
-                window.location.reload();
+                dispatch({type: 'DELETE_POST', payload: json});
             }
         } catch (err) {
             console.log(err);
