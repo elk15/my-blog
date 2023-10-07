@@ -9,10 +9,10 @@ const Comment = ({comment}) => {
             <p className='text-lg font-semibold'>{comment.name}</p>
             <p>{comment.body}</p>
             <div className='flex flex-wrap gap-2'>
-                <button className='underline hover:bg-neutral-900'>
+                <button className='underline hover:text-neutral-900'>
                     Update
                 </button>
-                <button className='underline hover:bg-neutral-900'>
+                <button className='underline hover:text-neutral-900'>
                     Delete
                 </button>
                 <span>
