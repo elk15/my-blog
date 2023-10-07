@@ -1,8 +1,27 @@
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 const Post = ({post}) => {
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/posts/${post._id}`, {
+                method: 'DELETE',
+            })
+            const json = await response.json();
+
+            if (response.ok) {
+                setDeleteConfirm(false);
+                window.location.reload();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
     <section className='border border-neutral-300 p-3 rounded max-w-[500px] w-full'>
         <div className='flex flex-col md:flex-row justify-between text-neutral-600'>
@@ -23,16 +42,36 @@ const Post = ({post}) => {
         <h2 className='text-xl font-semibold'>{post.title}</h2>
         <p className='text-neutral-500'>{post.snippet}</p>
         <span className='text-teal-500 font-semibold'>{post.tags.map(tag => tag.toUpperCase() + " ")}</span>
-        <div className='flex gap-3 underline text-neutral-600'>
-            <Link to="" className='hover:text-black'>
+        <div className='flex flex-wrap gap-3 text-neutral-600'>
+            <Link to="" className='hover:text-black underline'>
                 Moderate Comments
             </Link>
-            <Link to={`/update/${post._id}`} className='hover:text-black'>
+            <Link to={`/update/${post._id}`} className='hover:text-black underline'>
                 Update
             </Link>
-            <Link to="" className='hover:text-black'>
+            {deleteConfirm ?
+            <div>
+                <p className='no-underline font-semibold'>
+                    Are you sure you want to delete this?
+                </p>
+                <div className='flex gap-5'>
+                    <button onClick={handleDelete}
+                    className='text-red-500 font-bold text-lg underline'>
+                        Yes
+                    </button>
+                    {" "}
+                    <button onClick={() => setDeleteConfirm(false)}
+                    className='text-lg underline'>
+                        No
+                    </button>
+                </div>
+            </div>
+            :
+            <button className='hover:text-black underline' onClick={() => setDeleteConfirm(true)}>
                 Delete
-            </Link>
+            </button>
+            }
+            
         </div>
     </section>
     )
