@@ -1,12 +1,63 @@
+import { useState } from "react"
 import PostForm from "../components/PostForm"
-
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+    const [post, setPost] = useState({
+        title: '',
+        snippet: '',
+        body: '<p>Hello, World!</p>',
+        tags: '',
+        isPublished: false,
+    })
+    const [errors, setErrors] = useState(null);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:3001/api/posts/', {
+                method: 'POST',
+                body: JSON.stringify(post),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const json = await response.json();
+
+            if (!response.ok) {
+                setErrors(json.errors);
+            }
+
+            if (response.ok) {
+                setPost({
+                    title: '',
+                    snippet: '',
+                    body: '',
+                    tags: '',
+                    isPublished: false,
+                })
+                setErrors(null)
+                navigate("/");
+            }
+
+            
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
 
     return (
         <>
         <h2 className="text-2xl font-semibold">Create a Post</h2>
-        <PostForm />
+        <PostForm 
+        post={post} 
+        setPost={setPost} 
+        handleSubmit={handleSubmit}
+        errors={errors}
+        />
         </>
     )
 }
