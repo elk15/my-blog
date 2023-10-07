@@ -9,6 +9,12 @@ const getPosts = async (req, res) => {
     res.status(200).json(posts);
 }
 
+const getPublishedPosts = async (req, res) => {
+    const posts = await Post.find({isPublished: true}).sort({createdAt: -1});
+
+    res.status(200).json(posts);
+}
+
 const getPost = async (req, res) => {
     const {id} = req.params;
 
@@ -127,6 +133,7 @@ const updatePost = [
 
 module.exports = {
     getPosts,
+    getPublishedPosts,
     getPost,
     createPost,
     deletePost,
