@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react"
+import { useContext } from "react";
+import { useEffect } from "react"
 import { useParams } from "react-router-dom";
 import Comment from "../components/Comment";
+import { CommentsContext } from "../context/CommentsContext";
 
 const ModerateComments = () => {
-    const [comments, setComments] = useState(null);
+    const {comments, dispatch} = useContext(CommentsContext);
     let {postid} = useParams();
 
     useEffect(() => {
@@ -13,7 +15,7 @@ const ModerateComments = () => {
                 const json = await response.json();
 
                 if (response.ok) {
-                    setComments(json);
+                    dispatch({type: 'SET_COMMENTS', payload: json});
                 }
             } catch (err) {
                 console.log(err);
@@ -22,7 +24,7 @@ const ModerateComments = () => {
         }
 
         fetchComments();
-    }, [postid])
+    }, [postid, dispatch])
 
 
     return (
