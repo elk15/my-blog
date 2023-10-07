@@ -46,7 +46,7 @@ const Post = ({post}) => {
         <p className='text-neutral-500'>{post.snippet}</p>
         <span className='text-teal-500 font-semibold'>{post.tags.map(tag => tag.toUpperCase() + " ")}</span>
         <div className='flex flex-wrap gap-3 text-neutral-600'>
-            <Link to="" className='hover:text-black underline'>
+            <Link to={`/comments/${post._id}`} className='hover:text-black underline'>
                 Moderate Comments
             </Link>
             <Link to={`/update/${post._id}`} className='hover:text-black underline'>
