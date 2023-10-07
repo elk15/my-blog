@@ -5,7 +5,7 @@ const useServerData = () => {
     const [comments, setComments] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/posts')
+        fetch('http://localhost:3001/api/posts/published')
         .then((response) => {
             if (response.ok) {
                 return response.json();
