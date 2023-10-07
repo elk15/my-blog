@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import Post from "../components/Post";
 import { PostsContext } from "../context/PostsContext";
 
@@ -25,9 +26,9 @@ const Home = () => {
 
     return (
         <>
-            <a href="" className="border border-neutral-300 p-2 rounded text-lg hover:bg-neutral-200">
+            <Link to="/create" className="border border-neutral-300 p-2 rounded text-lg hover:bg-neutral-200">
                 + Create a New Article
-            </a>
+            </Link>
             {posts && posts.map((post) => (
                 <Post key={post._id} post={post}/>
                 ))}
