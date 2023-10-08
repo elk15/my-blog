@@ -18,7 +18,7 @@ const Post = ({post}) => {
 
             if (response.ok) {
                 setDeleteConfirm(false);
-                dispatch({type: 'DELETE_POST', payload: json});
+                dispatch({type: 'DELETE_POST', payload: json.post});
             }
         } catch (err) {
             console.log(err);
