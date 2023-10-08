@@ -31,7 +31,7 @@ const ModerateComments = () => {
         <>
         <h1 className="text-2xl font-semibold">Moderate Comments</h1>
         {comments && comments.map(comment => (
-            <Comment key={comment._id} comment={comment}/>
+            <Comment key={comment._id} comment={comment} postid={postid}/>
         ))}
         </>
     )
