@@ -106,7 +106,7 @@ const updateComment = [
             const {id} = req.params;
             const comment = await Comment.findOneAndUpdate({_id: id}, {
                 ...req.body
-            })
+            }, {new: true});
             res.status(200).json(comment);
         } catch(err) {
             res.status(400).json({errors: [{msg: err.message}]});
