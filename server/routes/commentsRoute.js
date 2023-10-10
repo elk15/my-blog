@@ -7,6 +7,7 @@ const {
     deleteComment,
     updateComment,
 } = require('../controllers/commentsController');
+const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 // GET all comments
@@ -20,6 +21,9 @@ router.get('/:id', getComment);
 
 //POST a new comment
 router.post('/', createComment);
+
+// protect the routes bellow
+router.use(requireAuth);
 
 //DELETE a comment
 router.delete('/:id', deleteComment);

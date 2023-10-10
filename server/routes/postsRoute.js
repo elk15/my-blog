@@ -7,16 +7,20 @@ const {
     deletePost,
     updatePost,
 } = require('../controllers/postsController');
+const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
-
-// GET all posts
-router.get('/', getPosts);
 
 // GET all published posts
 router.get('/published', getPublishedPosts);
 
 //GET one post
 router.get('/:id', getPost);
+
+// protect the routes bellow 
+router.use(requireAuth);
+
+// GET all posts
+router.get('/', getPosts);
 
 //POST a new post
 router.post('/', createPost);
