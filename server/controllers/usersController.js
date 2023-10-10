@@ -58,7 +58,8 @@ const signupUser = [
             minNumbers:1,
             minSymbols: 1,
         })
-        .withMessage("Password not strong enough")
+        .withMessage("Password must be at least 8 characters long and have at least " + 
+        "one lowercase and uppercase letter, a number and a symbol.")
         .escape(),
     async (req, res) => {
         const {email, password} = req.body;
