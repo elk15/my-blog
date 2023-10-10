@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import PostForm from "../components/PostForm"
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const CreatePost = () => {
     const [post, setPost] = useState({
@@ -12,6 +13,7 @@ const CreatePost = () => {
     })
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +23,8 @@ const CreatePost = () => {
                 method: 'POST',
                 body: JSON.stringify(post),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
             const json = await response.json();

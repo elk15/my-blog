@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import PostForm from "../components/PostForm"
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const UpdatePost = () => {
     const [post, setPost] = useState(null)
@@ -9,6 +10,7 @@ const UpdatePost = () => {
     const [getError, setGetError] = useState(null);
     const navigate = useNavigate();
     let {postid} = useParams();
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -46,7 +48,8 @@ const UpdatePost = () => {
                 method: 'PATCH',
                 body: JSON.stringify(post),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
             const json = await response.json();

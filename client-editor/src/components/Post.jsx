@@ -4,15 +4,20 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useContext } from 'react';
 import { PostsContext } from '../context/PostsContext';
+import { AuthContext } from "../context/AuthContext";
 
 const Post = ({post}) => {
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const { dispatch } = useContext(PostsContext);
+    const {user} = useContext(AuthContext);
 
     const handleDelete = async () => {
         try {
             const response = await fetch(`http://localhost:3001/api/posts/${post._id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
             })
             const json = await response.json();
 

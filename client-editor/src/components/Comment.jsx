@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { CommentsContext } from '../context/CommentsContext';
+import { AuthContext } from "../context/AuthContext";
 
 const Comment = ({comment, postid}) => {
     const {dispatch} = useContext(CommentsContext);
@@ -10,11 +11,15 @@ const Comment = ({comment, postid}) => {
     const [updateMode, setUpdateMode] = useState(false);
     const [updatedComment, setUpdatedComment]  = useState(comment);
     const [errors, setErrors] = useState(null);
+    const {user} = useContext(AuthContext);
 
     const handleDelete = async () => {
         try {
             const response = await fetch(`http://localhost:3001/api/comments/${comment._id}`, {
-            method: 'DELETE',
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
             })
             const json = await response.json();
 
@@ -35,7 +40,8 @@ const Comment = ({comment, postid}) => {
                 method: 'PATCH',
                 body: JSON.stringify(updatedComment),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
             const json = await response.json();

@@ -3,14 +3,20 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Post from "../components/Post";
 import { PostsContext } from "../context/PostsContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
     const {posts, dispatch} = useContext(PostsContext);
     const [query, setQuery] = useState('');
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
         const fetchPosts = async () => {
-            fetch('http://localhost:3001/api/posts/')
+            fetch('http://localhost:3001/api/posts/', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -23,7 +29,7 @@ const Home = () => {
         }
 
         fetchPosts();
-    }, [dispatch])
+    }, [dispatch, user.token])
 
     const search = (query, post) => {
         if(post.title.toLowerCase().includes(query.toLowerCase()) 
@@ -40,7 +46,8 @@ const Home = () => {
                 + Create a New Article
             </Link>
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)}
-            className='border border-neutral-300 p-2 rounded w-1/2' placeholder="Search"/>
+            className='border border-neutral-300 p-2 rounded w-1/2 focus:outline-teal-500' 
+            placeholder="Search"/>
             {query.length > 2 ?
                 posts && posts
                     .filter(post => search(query, post))
