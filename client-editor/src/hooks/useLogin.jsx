@@ -3,13 +3,13 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export const useLogin = () => {
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const {dispatch} = useContext(AuthContext);
 
     const login = async (email, password) => {
         setIsLoading(true);
-        setError(null);
+        setErrors(null);
 
         const response = await fetch('http://localhost:3001/api/users/login', {
             method: 'POST',
@@ -21,7 +21,7 @@ export const useLogin = () => {
 
         if (!response.ok) {
             setIsLoading(false);
-            setError(json.error);
+            setErrors(json.errors);
         }
 
         if (response.ok) {
@@ -35,5 +35,5 @@ export const useLogin = () => {
         }
     }
 
-    return { login, isLoading, error }
+    return { login, isLoading, errors }
 }
