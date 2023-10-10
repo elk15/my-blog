@@ -5,7 +5,7 @@ const useServerData = () => {
     const [comments, setComments] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/posts/published')
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/published`)
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -16,7 +16,7 @@ const useServerData = () => {
         .then((json) => setPosts(json))
         .catch((err) => console.log(err));
 
-        fetch('http://localhost:3001/api/comments')
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/comments`)
         .then((response) => {
             if (response.ok) {
                 return response.json();
