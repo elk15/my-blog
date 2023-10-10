@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const compression = require("compression");
 const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 var cors = require('cors');
 
 const postRoutes = require('./routes/postsRoute');
@@ -11,12 +12,17 @@ const userRoutes = require('./routes/usersRoute');
 
 const app = express();
 
+// Limit requests: maximum of twenty requests per minute
+const limiter = RateLimit({
+    windowMs: 1 * 60 * 1000, 
+    max: 20,
+});
+
 // middleware
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-
-// compress all routes
+app.use(limiter);
 app.use(compression());
 
 // routes
