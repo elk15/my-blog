@@ -13,7 +13,7 @@ const Post = ({post}) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`/api/posts/${post._id}`, {
+            const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/posts/${post._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`

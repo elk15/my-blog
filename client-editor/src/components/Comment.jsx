@@ -15,7 +15,7 @@ const Comment = ({comment, postid}) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`/api/comments/${comment._id}`, {
+            const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/comments/${comment._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`
@@ -36,7 +36,7 @@ const Comment = ({comment, postid}) => {
 
         try {
             updatedComment.replyingTo = postid;
-            const response = await fetch(`/api/comments/${comment._id}`, {
+            const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/comments/${comment._id}`, {
                 method: 'PATCH',
                 body: JSON.stringify(updatedComment),
                 headers: {

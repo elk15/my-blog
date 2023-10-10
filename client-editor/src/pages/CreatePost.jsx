@@ -19,7 +19,7 @@ const CreatePost = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/posts/`, {
+            const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/posts/`, {
                 method: 'POST',
                 body: JSON.stringify(post),
                 headers: {

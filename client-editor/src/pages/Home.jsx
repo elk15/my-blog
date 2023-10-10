@@ -12,7 +12,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            fetch(`/api/posts/`, {
+            fetch(`https://my-blog-production-a226.up.railway.app/api/posts/`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }

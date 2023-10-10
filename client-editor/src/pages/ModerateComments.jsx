@@ -11,7 +11,7 @@ const ModerateComments = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`/api/comments/replyingTo/${postid}`);
+                const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/comments/replyingTo/${postid}`);
                 const json = await response.json();
 
                 if (response.ok) {

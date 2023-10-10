@@ -11,7 +11,7 @@ export const useLogin = () => {
         setIsLoading(true);
         setErrors(null);
 
-        const response = await fetch(`/api/users/login`, {
+        const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/users/login`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})

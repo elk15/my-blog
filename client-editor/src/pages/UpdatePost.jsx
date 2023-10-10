@@ -15,7 +15,7 @@ const UpdatePost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`/api/posts/${postid}`);
+                const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/posts/${postid}`);
                 const json = await response.json();
 
                 if (response.ok) {
@@ -44,7 +44,7 @@ const UpdatePost = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/posts/${postid}`, {
+            const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/posts/${postid}`, {
                 method: 'PATCH',
                 body: JSON.stringify(post),
                 headers: {
