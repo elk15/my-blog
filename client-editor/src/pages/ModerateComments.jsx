@@ -33,7 +33,7 @@ const ModerateComments = () => {
         {comments && comments.map(comment => (
             <Comment key={comment._id} comment={comment} postid={postid}/>
         ))}
-        {(comments.length === 0) &&
+        {(comments && comments.length === 0) &&
             <p>No comments on this article</p>
         }
         </>
