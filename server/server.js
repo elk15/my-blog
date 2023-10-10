@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const compression = require("compression");
+const helmet = require("helmet");
 var cors = require('cors');
 
 const postRoutes = require('./routes/postsRoute');
@@ -13,6 +14,7 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 // compress all routes
 app.use(compression());
