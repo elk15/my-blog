@@ -15,7 +15,7 @@ const UpdatePost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/api/posts/${postid}`);
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${postid}`);
                 const json = await response.json();
 
                 if (response.ok) {
@@ -44,7 +44,7 @@ const UpdatePost = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3001/api/posts/${postid}`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${postid}`, {
                 method: 'PATCH',
                 body: JSON.stringify(post),
                 headers: {
