@@ -19,7 +19,7 @@ const CreatePost = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/`, {
+            const response = await fetch(`/api/posts/`, {
                 method: 'POST',
                 body: JSON.stringify(post),
                 headers: {

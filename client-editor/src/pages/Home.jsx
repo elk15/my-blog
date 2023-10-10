@@ -12,7 +12,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/`, {
+            fetch(`/api/posts/`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
