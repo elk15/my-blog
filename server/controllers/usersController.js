@@ -62,24 +62,27 @@ const signupUser = [
         "one lowercase and uppercase letter, a number and a symbol.")
         .escape(),
     async (req, res) => {
-        const {email, password} = req.body;
-        const errors = validationResult(req);
+        // const {email, password} = req.body;
+        // const errors = validationResult(req);
 
-        if (!errors.isEmpty()) {
-            res.status(400).json({errors: errors.array()});
-            return;
-        } 
+        // if (!errors.isEmpty()) {
+        //     res.status(400).json({errors: errors.array()});
+        //     return;
+        // } 
         
-        try {
-            const user = await User.signup(email, password);
+        // try {
+        //     const user = await User.signup(email, password);
         
-            // create a token
-            const token = createToken(user._id);
+        //     // create a token
+        //     const token = createToken(user._id);
         
-            res.status(200).json({email, token});
-        } catch(err) {
-            res.status(400).json({errors: [{msg: err.message}]});
-        }
+        //     res.status(200).json({email, token});
+        // } catch(err) {
+        //     res.status(400).json({errors: [{msg: err.message}]});
+        // }
+
+        res.status(400).json({error: "Signing up disabled"});
+
     }
 ]
 
