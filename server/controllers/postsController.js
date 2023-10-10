@@ -64,8 +64,9 @@ const createPost = [
         } 
 
         try {
+            const author = req.user._id;
             const {title, snippet, body, tags, isPublished} = req.body;
-            const post = await Post.create({title, snippet, body, tags, isPublished});
+            const post = await Post.create({title, snippet, body, tags, isPublished, author});
             res.status(200).json(post);
         } catch(err) {
             res.status(400).json({errors: [{msg: err.message}]});
