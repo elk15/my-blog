@@ -5,7 +5,7 @@ const useServerData = () => {
     const [comments, setComments] = useState(null);
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/published`)
+        fetch(`https://my-blog-production-a226.up.railway.app/api/posts/published`)
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -16,7 +16,7 @@ const useServerData = () => {
         .then((json) => setPosts(json))
         .catch((err) => console.log(err));
 
-        fetch(`${import.meta.env.VITE_SERVER_URL}/api/comments`)
+        fetch(`https://my-blog-production-a226.up.railway.app/api/comments`)
         .then((response) => {
             if (response.ok) {
                 return response.json();

@@ -26,7 +26,7 @@ const CommentForm = ({postid, setCommentFormStatus}) => {
 
         const comment = {name, body, replyingTo: postid};
 
-        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/comments`, {
+        const response = await fetch(`https://my-blog-production-a226.up.railway.app/api/comments`, {
             method: 'POST',
             body: JSON.stringify(comment),
             headers: {
