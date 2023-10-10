@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
+import { useContext} from "react";
+import { ThemeContext } from '../context/ThemeContext';
 
 const MainContent = ({title, children, query, setQuery = null}) => {
+    const theme = useContext(ThemeContext);
+
     return (
         <div className="flex flex-col gap-5 max-w-[800px] w-full px-3 pt-5">
             <h3 className="md:text-5xl text-4xl font-extrabold tracking-tight">
@@ -10,7 +14,7 @@ const MainContent = ({title, children, query, setQuery = null}) => {
             {setQuery &&
             <SearchBar query={query} setQuery={setQuery}/>
             }
-            <hr className="border-neutral-400 w-full"/>
+            <hr className={`${theme === 'light' ? 'border-neutral-300' : 'border-neutral-700'} w-full`}/>
             {children}
         </div>
     )
