@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const { body, validationResult } = require("express-validator");
 
 const getPosts = async (req, res) => {
-    const posts = await Post.find({}).sort({createdAt: -1});
+    const author = req.user._id;
+
+    const posts = await Post.find({author}).sort({createdAt: -1});
 
     res.status(200).json(posts);
 }
