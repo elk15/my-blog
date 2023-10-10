@@ -13,7 +13,7 @@ const Login = () => {
     }
 
     return (
-        <form className="flex flex-col gap-3 items-center p-3 rounded shadow-md" 
+        <form className="flex flex-col gap-3 items-center p-5 rounded shadow-md text-lg" 
         onSubmit={handleSubmit}>
             <h3 className="font-semibold text-2xl mb-4">
                 Log in
