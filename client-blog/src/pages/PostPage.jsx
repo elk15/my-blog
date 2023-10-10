@@ -40,7 +40,7 @@ const PostPage = () => {
     }, [postid])
     
     return (
-        <div className="flex flex-col items-center gap-3 max-w-[650px] w-full px-3 pt-5">
+        <div className="flex flex-col items-center gap-3 max-w-[800px] w-full px-3 pt-5 pb-20">
             {post &&
             <>
                 <p className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-400'}`}>
@@ -48,7 +48,7 @@ const PostPage = () => {
                 </p>
                 <h3 className="font-bold text-4xl">{post.title}</h3>
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full mb-2`}/>
-                <div className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-200'} text-lg self-start`}>
+                <div className={`${theme === 'light' ? 'text-neutral-600' : 'text-neutral-200'} text-lg self-start flex flex-col gap-4`}>
                     {parse(post.body)}
                 </div>
                 <hr className={`${theme === 'light' ? 'border-neutral-200' : 'border-neutral-700'} w-full my-2`}/>
