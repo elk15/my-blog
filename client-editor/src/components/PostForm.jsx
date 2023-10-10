@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 const PostForm = ({post, setPost, handleSubmit, errors}) => {
     const editorRef = useRef(null);
 
+    console.log(import.meta.env.VITE_TINY_API_KEY)
+
     return (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <input type="text" maxLength={100} placeholder="Title" required
@@ -18,7 +20,6 @@ const PostForm = ({post, setPost, handleSubmit, errors}) => {
             <Editor
                 apiKey={import.meta.env.VITE_TINY_API_KEY}
                 onInit={(evt, editor) => editorRef.current = editor}
-                initialValue="<p>Hello, World!</p>"
                 init={{
                 height: 500,
                 menubar: true,
