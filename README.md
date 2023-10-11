@@ -19,6 +19,7 @@ It has a server which supplies data to two clients:
 - Create, update and delete posts
 - Authorization with json web token for the editor
 - Blog owner can delete or edit comments
+- Text editor with TinyMCE API
 - Fully responsive
 
 ## Screeshots
