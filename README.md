@@ -7,7 +7,10 @@ It has a server which supplies data to two clients:
   leave messages
 - the editor where the owner of the blog can log in, create, update, and delete posts
   and moderate comments by editing them or deleting them.
-
+  
+  Live(Blog): https://fullstack-tutorials.netlify.app/
+  Live(Editor): https://fullstack-tutorials-editor.netlify.app/
+  
 ## Features
 
 - Light and Dark theme
